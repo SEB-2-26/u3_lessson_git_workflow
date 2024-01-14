@@ -51,10 +51,10 @@ To add collaborators on a repository:
 With a [feature branch workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow), we'll be sharing a central repository with a main branch and doing our work in separate branches before merging it into the main branch of the project. To create our own, separate branches for the project, we'll be using this command:
 
 ```sh
-git checkout -b your-branch-name
+git switch -c your-branch-name
 ```
 
-> The -b flag tells the checkout command to create a new branch if one with that name doesn't already exist
+> The -c flag tells the switch command to create a new branch if one with that name doesn't already exist
 
 Let's take 5 minutes to read about [Checkout](https://www.atlassian.com/git/tutorials/using-branches/git-checkout).
 
@@ -64,14 +64,28 @@ So to break things down, let's cover the steps of how we'll be using this workfl
 - Once the central project repository has been created, you'll need to add everyone working on the project as a collaborator and you'll each `clone` the repository. Make sure **NOT** to `fork` it
 - Next, within your local directory, you'll create a new branch for the project that you'll be working on, separate from `main`
   ```js
-  git checkout -b my-branch
+  git switch -c my-branch
   ```
 - From there, you'll treat that branch as if it were your own project, adding commits and pushing your code to it
 - Finally, when you've completed a feature and are ready to `merge` it into `main`, you'll need to make a `Pull Request` from your branch on Github
 - Your git czar/boss/lord/etc. will review your pull request and merge it into the `main` branch from there
-- After the feature has been merged, your whole group will pull down the new code to their branches with:
+- After the feature has been merged, your whole group will switch to their main branch to pull down the latest code with:
+
+  ```sh
+  git switch main
+  ```
+
+- Then pull the latest code down from origin:
   ```sh
   git pull origin main
+  ```
+- Then switch back to their feature branch:
+  ```sh
+  git switch my-branch
+  ```
+- Finally, merge the latest code into your feature branch:
+  ```sh
+  git merge main
   ```
 - Rinse and repeat, projects are never finished!
 
@@ -141,18 +155,18 @@ Let's practice making our own branches and adding in some features!
 First you'll need to make a branch. Use `git checkout` to create your own branch named your first name in your cloned local repository. For example:
 
 ```sh
-git checkout -b andre
+git switch -c john
 ```
 
 Cool! Now let's make some some changes.
 
 - In the `names` directory, add in a new .txt file with **your** first name as well. Example:
   ```sh
-  touch andre.txt
+  touch john.txt
   ```
 - Now we'll add a little content to the file. We can edit the file in VS Code or from the command line like:
   ```sh
-  echo "Here is a line of text in the file." >> andre.txt
+  echo "Here is a line of text in the file." >> john.txt
   ```
 
 Go ahead and add, commit, and push those changes up to your branch. Now we'll practice making pull requests together.
